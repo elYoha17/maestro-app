@@ -1,8 +1,7 @@
 import { Head, usePage } from '@inertiajs/react';
-import Heading from '@/components/heading';
 import RoleCard from '@/components/role-card';
-import { edit } from '@/routes/roles';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
+import { edit } from '@/routes/roles';
 
 type RoleItem = {
     id: number;
