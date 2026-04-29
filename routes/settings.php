@@ -1,11 +1,16 @@
 <?php
 
 use App\Http\Controllers\Settings\ProfileController;
+use App\Http\Controllers\Settings\RoleController;
 use App\Http\Controllers\Settings\SecurityController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', '/settings/profile');
+    Route::redirect('settings', '/settings/roles')->name('settings.index');
+    
+    Route::get('settings/roles', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::put('settings/roles/{role}', [RoleController::class, 'activate'])->name('roles.activate');
+    Route::delete('settings/roles', [RoleController::class, 'deactivate'])->name('roles.deactivate');
 
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
