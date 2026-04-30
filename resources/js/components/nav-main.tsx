@@ -1,4 +1,4 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -6,22 +6,23 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { useCurrentUrl } from '@/hooks/use-current-url';
-import type { NavItem } from '@/types';
+import type { ResolvedNavItem } from '@/types';
 
-export function NavMain({ items = [] }: { items: NavItem[] }) {
-    const { isCurrentUrl } = useCurrentUrl();
-    const { auth } = usePage().props;
+type NavMainProps = {
+    items?: ResolvedNavItem[];
+    label?: string;
+};
 
+export function NavMain({ items = [], label }: NavMainProps) {
     return (
         <SidebarGroup className="px-2 py-0">
-            <SidebarGroupLabel>{auth.role?.label}</SidebarGroupLabel>
+            <SidebarGroupLabel>{label}</SidebarGroupLabel>
             <SidebarMenu>
                 {items.map((item) => (
                     <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton
                             asChild
-                            isActive={isCurrentUrl(item.href)}
+                            isActive={item.isActive}
                             tooltip={{ children: item.title }}
                         >
                             <Link href={item.href}>
