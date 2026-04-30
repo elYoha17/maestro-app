@@ -17,8 +17,8 @@ export default function Roles({ roles }: Props) {
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="grid auto-rows-min gap-4 md:grid-cols-1">
                     {roles.map((role) => (
-                        <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                            <RoleCard key={role.id} role={role} is_active={role.name === auth.role?.name} />
+                        <div key={role.id} className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                            <RoleCard role={role} is_active={role.name === auth.role?.name} />
                         </div>
                     ))}
                     <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
