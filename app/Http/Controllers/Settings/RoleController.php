@@ -34,7 +34,7 @@ class RoleController extends Controller
             ]);
         }
 
-        return redirect()->route('roles.edit');
+        return back();
     }
 
     public function deactivate(Request $request): RedirectResponse
@@ -46,6 +46,6 @@ class RoleController extends Controller
             'message' => __('Role deactivated.'),
         ]);
 
-        return redirect()->route('roles.edit');
+        return back();
     }
 }
