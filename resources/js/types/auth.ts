@@ -10,9 +10,18 @@ export type User = {
     [key: string]: unknown;
 };
 
+export type Role = {
+    id: number,
+    name: string,
+    label: string,
+    description: string|null,
+    created_at: string;
+    updated_at: string;
+}
+
 export type Auth = {
     user: User;
-    role: string | null;
+    role: Role | null;
 };
 
 export type TwoFactorSetupData = {

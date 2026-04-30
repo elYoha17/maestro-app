@@ -2,22 +2,14 @@ import { Head, usePage } from '@inertiajs/react';
 import RoleCard from '@/components/role-card';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import { edit } from '@/routes/roles';
-
-type RoleItem = {
-    id: number;
-    name: string;
-    label: string;
-    description: string | null;
-    is_active: boolean;
-};
+import type { Role } from '@/types';
 
 type Props = {
-    roles: RoleItem[];
+    roles: Role[];
 };
 
 export default function Roles({ roles }: Props) {
     const { auth } = usePage().props;
-    console.log(roles);
 
     return (
         <>
@@ -26,7 +18,7 @@ export default function Roles({ roles }: Props) {
                 <div className="grid auto-rows-min gap-4 md:grid-cols-1">
                     {roles.map((role) => (
                         <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                            <RoleCard key={role.id} role={role} is_active={role.name === auth.role} />
+                            <RoleCard key={role.id} role={role} is_active={role.name === auth.role?.name} />
                         </div>
                     ))}
                     <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
