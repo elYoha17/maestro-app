@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\UserRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -18,6 +20,8 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
+
+    protected $with = ['roles'];
 
     /**
      * Get the attributes that should be cast.
@@ -38,8 +42,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'user_has_role');
     }
 
-    public function hasRoleNamed(string $roleName): bool
+    public function hasRole(Role|UserRole|string $role): bool
     {
-        return $this->roles()->where('name', $roleName)->exists();
+        $role = $role instanceof Role ? $role->name : $role;
+        $role = $role instanceof UserRole ? $role->value : $role;
+        
+        return $this->roles->contains('name', $role);
     }
 }

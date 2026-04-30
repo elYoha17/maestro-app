@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Actions\Role\GetActiveRoleName;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -40,24 +41,9 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
-                'role' => $this->getActiveRole($request),
+                'role' => app(GetActiveRoleName::class)(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
-    }
-
-    public function getActiveRole(Request $request): ?string {
-        $activeRole = null;
-
-        if ($request->user() !== null) {
-            $activeRole = $request->session()->get('role');
-
-            if ($activeRole !== null && ! $request->user()->hasRoleNamed($activeRole)) {
-                $request->session()->forget('role');
-                $activeRole = null;
-            }
-        }
-
-        return $activeRole;
     }
 }

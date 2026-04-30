@@ -60,5 +60,6 @@
     "Verify Email Address": "Vérifier l'adresse e-mail",
     "Verify your email address": "Verify your email address",
     "Whoops!": "Oups !",
-    "You are receiving this email because we received a password reset request for your account.": "Vous recevez cet e-mail car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte."
+    "You are receiving this email because we received a password reset request for your account.": "Vous recevez cet e-mail car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.",
+    "You cannot active this role.": "Vous ne pouvez pas activer ce rôle."
 }

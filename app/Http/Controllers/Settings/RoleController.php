@@ -13,27 +13,26 @@ class RoleController extends Controller
 {
     public function edit(Request $request): Response
     {
-        $roles = $request->user()
-            ->roles()
-            ->select(['id', 'name', 'label', 'description'])
-            ->orderBy('roles.label')
-            ->get();
-            
         return Inertia::render('settings/roles', [
-            'roles' => $roles,
+            'roles' => $request->user()->roles,
         ]);
     }
 
     public function activate(Request $request, Role $role): RedirectResponse
     {
-        abort_unless($request->user()->roles()->whereKey($role->getKey())->exists(), 403);
-
-        $request->session()->put('role', $role->name);
-
-        Inertia::flash('toast', [
-            'type' => 'success',
-            'message' => __('Role activated.'),
-        ]);
+        if ($request->user()->hasRole($role)) {
+            $request->session()->put('role', $role->name);
+            
+            Inertia::flash('toast', [
+                'type' => 'success',
+                'message' => __('Role activated.'),
+            ]);
+        } else {
+            Inertia::flash('toast', [
+                'type' => 'warning',
+                'message' => __('You cannot active this role.'),
+            ]);
+        }
 
         return back();
     }
