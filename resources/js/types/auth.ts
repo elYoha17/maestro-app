@@ -10,9 +10,11 @@ export type User = {
     [key: string]: unknown;
 };
 
+export type RoleName = "admin" | "manager";
+
 export type Role = {
     id: number,
-    name: string,
+    name: RoleName,
     label: string,
     description: string|null,
     created_at: string;
