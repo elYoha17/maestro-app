@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -11,10 +11,11 @@ import type { NavItem } from '@/types';
 
 export function NavMain({ items = [] }: { items: NavItem[] }) {
     const { isCurrentUrl } = useCurrentUrl();
+    const { auth } = usePage().props;
 
     return (
         <SidebarGroup className="px-2 py-0">
-            <SidebarGroupLabel>Plateforme</SidebarGroupLabel>
+            <SidebarGroupLabel>{auth.role?.label}</SidebarGroupLabel>
             <SidebarMenu>
                 {items.map((item) => (
                     <SidebarMenuItem key={item.title}>
