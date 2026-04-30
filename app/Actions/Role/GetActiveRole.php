@@ -22,6 +22,8 @@ class GetActiveRole
             return null;
         }
 
-        return $user->roles->first(fn (Role $role) => $role->name === $this->request->session()->get('role'));
+        $roleName = $this->request->session()->get('role');
+
+        return $user->roles()->where('name', $roleName)->first();
     }
 }
