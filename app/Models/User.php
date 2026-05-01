@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -42,11 +43,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'user_has_role');
     }
 
+    public function agent(): HasOne
+    {
+        return $this->hasOne(Agent::class);
+    }
+
     public function hasRole(Role|UserRole|string $role): bool
     {
         $role = $role instanceof Role ? $role->name : $role;
         $role = $role instanceof UserRole ? $role->value : $role;
-        
+
         return $this->roles->contains('name', $role);
     }
 }
